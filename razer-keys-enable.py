@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Razer Keys Enable 
 # Copyright © 2012 Michael Fincham <michael@finch.am>
