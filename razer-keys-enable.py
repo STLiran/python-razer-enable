@@ -51,7 +51,7 @@ def main():
 
     try:
         handle = device.open()
-        interface = device.configurations[0].interfaces[USB_INTERFACE][0]
+        interface = device.configurations[0].interfaces[0][USB_INTERFACE]
         endpoint = interface.endpoints[0]
     except:
         sys.stderr.write("Could not select configuration endpoint.\n")
