@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 # Razer Keys Enable 
 # Copyright © 2012 Michael Fincham <michael@finch.am>
 # Copyright © 2012 Jelle Licht <jlicht@fsfe.org>
