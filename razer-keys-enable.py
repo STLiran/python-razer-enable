@@ -26,7 +26,7 @@ import sys
 import usb
 
 USB_VENDOR = 0x1532  # Razer
-USB_PRODUCT = 0x010d  # BlackWidow / BlackWidow Ultimate
+USB_PRODUCT = [0x010d, 0x010e, 0x10f]  # BlackWidow / BlackWidow Ultimate, Lachesis, Anansi
 
 # These values are from the USB HID 1.11 spec section 7.2.
 # <http://www.usb.org/developers/devclass_docs/HID1_11.pdf>
@@ -46,21 +46,16 @@ USB_BUFFER = b"\x00\x00\x00\x00\x00\x01\x00\x04\x03\x00\x00\x00\x00\x00\
 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x06\x00"
 
 
-def find_keyboard_device():
+def find_keyboard_devices():
+    devices = [];
     for bus in usb.busses():
         for device in bus.devices:
             if device.idVendor == USB_VENDOR and \
-               device.idProduct == USB_PRODUCT:
-                return device
+               device.idProduct in USB_PRODUCT:
+               devices.append(device)
+    return devices
 
-
-def main():
-
-    device = find_keyboard_device()
-    if device == None:
-        sys.stderr.write("BlackWidow not found.\n")
-        sys.exit(1)
-
+def enableRazer (device):
     try:
         handle = device.open()
         interface = device.configurations[0].interfaces[0][USB_INTERFACE]
@@ -82,9 +77,7 @@ def main():
     except:
         sys.stderr.write("Unable to claim the configuration interface. Do you have the appropriate privileges?\n")
         sys.exit(1)
-
-    result = 0
-
+    result = -1 
     try:
         result = handle.controlMsg(requestType=USB_REQUEST_TYPE,
                                    request=USB_REQUEST,
@@ -92,10 +85,10 @@ def main():
                                    index=USB_INDEX,
                                    buffer=USB_BUFFER)
     except:
-        sys.stderr.write("Could not write the magic bytes to the BlackWidow.\n")
+        sys.stderr.write("Could not write the magic bytes to the device.\n")
 
     if result == len(USB_BUFFER):
-        sys.stderr.write("Configured BlackWidow.\n")
+        sys.stderr.write("Configured device.\n")
 
     try:
         handle.releaseInterface()
@@ -103,6 +96,15 @@ def main():
         sys.stderr.write("Unable to release interface.\n")
         sys.exit(1)
 
+
+
+def main():
+    devices = find_keyboard_devices()
+    if not devices:
+        sys.stderr.write("No compatible devices found.\n")
+        sys.exit(1)
+    for device in devices:
+        enableRazer(device)
     sys.exit(0)
 
 if __name__ == "__main__":
