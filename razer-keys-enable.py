@@ -1,14 +1,25 @@
 #!/usr/bin/python
-
-# blackwidow_enable.py
+# Razer Keys Enable 
+# Copyright © 2012 Michael Fincham <michael@finch.am>
+# Copyright © 2012 Jelle Licht <jlicht@fsfe.org>
 #
-# Enables the M1-5 and FN keys to send scancodes on the Razer BlackWidow
-# and BlackWidow Ultimate keyboards.
+# Razer Keys Enable is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 3 of the License, or (at your option) any
+# later version.
+#
+# Razer Keys Enable is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+# details.
+#
+# You should have received a copy of the GNU General Public License along with
+# Razer Keys Enable. If not, see <http://www.gnu.org/licenses/>.
+
+# Enables the M1-5 and FN keys to send scancodes on the Razer
+# BlackWidow,BlackWidow Ultimate, Lachesis and Anansi keyboards.
 #
 # Requires the PyUSB library.
-#
-# By Michael Fincham <michael@finch.am> 2012-03-05
-# This code is released in to the public domain.
 
 import sys
 import usb
